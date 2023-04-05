@@ -29,6 +29,7 @@ class CveController(BaseController):
         "cwe": {"type": str},
         "tag": {"type": str},
         "user_id": {"type": str},
+        "sv": {"type": str},
     }
 
     @classmethod
@@ -68,6 +69,17 @@ class CveController(BaseController):
                     Cve.summary.ilike(f"%{args.get('search')}%"),
                     Cve.vendors.contains([vendor.name]) if vendor else None,
                     Cve.vendors.contains([product.name]) if product else None,
+                )
+            )
+
+        # Filter by stringVector
+        # User.auth["facebook", "openid"].astext == "123456789"
+        if args.get("sv"):
+            # query = query.filter(Cve.json.contains([args.get("sv")])) 
+            query = query.filter(
+                or_(
+                    Cve.json.op("->")("impact").op("->")("baseMetricV2").op("->")("cvssV2").op("->>")("vectorString").astext.ilike(f'%{args.get("sv")}%'), #  (args.get("search")),
+                    Cve.json.op("->")("impact").op("->")("baseMetricV3").op("->")("cvssV3").op("->>")("vectorString").astext.ilike(f'%{args.get("sv")}%'),
                 )
             )
 
