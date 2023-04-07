@@ -1,6 +1,8 @@
 from flask import Blueprint
 from flask_restful import Api
 
+from opencve.api.detect import CveResourceDetect
+
 from opencve.api.alerts import AlertListResource, AlertResource
 from opencve.api.cves import CveListResource, CveResource
 from opencve.api.cwes import CweListResource, CweResource, CweCveResource
@@ -28,6 +30,7 @@ api.add_resource(CweListResource, "/cwe")
 api.add_resource(CweResource, "/cwe/<string:id>")
 api.add_resource(CweCveResource, "/cwe/<string:id>/cve")
 api.add_resource(CveListResource, "/cve")
+api.add_resource(CveResourceDetect, "/detect")
 api.add_resource(CveResource, "/cve/<string:id>")
 api.add_resource(ReportListResource, "/reports")
 api.add_resource(SubscriptionListRessourceVendor, "/account/subscriptions/vendors")
