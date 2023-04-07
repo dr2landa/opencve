@@ -3,7 +3,7 @@ from flask_restful import fields, marshal_with
 
 from opencve.api.base import BaseResource
 from opencve.api.fields import CveVendorsField, DatetimeField
-from opencve.controllers.cves import CveController
+from opencve.controllers.detect import DetectController
 
 
 cves_fields = {
@@ -29,4 +29,4 @@ cve_fields = dict(
 class CveResourceDetect(BaseResource):
     @marshal_with(cves_fields)
     def get(self, vendor, product, sv):
-        return CveController.list_items({"vendor": vendor, "product": product, "sv": sv})
+        return DetectController.list_items({"vendor": vendor, "product": product, "sv": sv})
