@@ -73,9 +73,7 @@ class CveController(BaseController):
             )
 
         # Filter by stringVector
-        # User.auth["facebook", "openid"].astext == "123456789"
         if args.get("sv"):
-            # query = query.filter(Cve.json.contains([args.get("sv")])) 
             query = query.filter(
                 or_(
                     Cve.json.op("->")("impact").op("->")("baseMetricV2").op("->")("cvssV2").op("->>")("vectorString").astext.ilike(f'%{args.get("sv")}%'), #  (args.get("search")),
