@@ -29,5 +29,5 @@ cve_fields = dict(
 
 class CveResourceDetect(BaseResource):
     @marshal_with(cves_fields)
-    def get(self, vendor, product, sv):
-        return DetectController.list_items({"vendor": vendor, "product": product, "sv": sv})
+    def get(self):
+        return DetectController.list_items(request.args)
