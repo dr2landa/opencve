@@ -76,7 +76,7 @@ class CveController(BaseController):
         if args.get("sv"):
             query = query.filter(
                 or_(
-                    Cve.json.op("->")("impact").op("->")("baseMetricV2").op("->")("cvssV2").op("->>")("vectorString").astext.ilike(f'%{args.get("sv")}%'), #  (args.get("search")),
+                    Cve.json.op("->")("impact").op("->")("baseMetricV2").op("->")("cvssV2").op("->>")("vectorString").astext.ilike(f'%{args.get("sv")}%'),
                     Cve.json.op("->")("impact").op("->")("baseMetricV3").op("->")("cvssV3").op("->>")("vectorString").astext.ilike(f'%{args.get("sv")}%'),
                 )
             )
