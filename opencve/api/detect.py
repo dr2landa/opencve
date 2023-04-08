@@ -26,6 +26,7 @@ cve_fields = dict(
     }
 )
 
+
 class CveResourceDetect(BaseResource):
     @marshal_with(cves_fields)
     def get(self, vendor, product, sv):
